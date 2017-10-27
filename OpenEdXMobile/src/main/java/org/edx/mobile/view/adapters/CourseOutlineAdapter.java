@@ -206,7 +206,7 @@ public class CourseOutlineAdapter extends BaseAdapter {
         viewHolder.rowSubtitleIcon.setVisibility(View.GONE);
         viewHolder.rowSubtitle.setVisibility(View.GONE);
         viewHolder.rowSubtitlePanel.setVisibility(View.GONE);
-        viewHolder.numOfVideoAndDownloadArea.setVisibility(View.GONE);
+//        viewHolder.numOfVideoAndDownloadArea.setVisibility(View.GONE);
 
         if (component.isContainer()) {
             getRowViewForContainer(viewHolder, row);
@@ -223,7 +223,7 @@ public class CourseOutlineAdapter extends BaseAdapter {
         viewHolder.rowSubtitleIcon.setVisibility(View.GONE);
         viewHolder.rowSubtitle.setVisibility(View.GONE);
         viewHolder.rowSubtitlePanel.setVisibility(View.GONE);
-        viewHolder.bulkDownload.setVisibility(View.INVISIBLE);
+//        viewHolder.bulkDownload.setVisibility(View.INVISIBLE);
         viewHolder.rowTitle.setText(unit.getDisplayName());
 
         if (row.component instanceof VideoBlockModel) {
@@ -238,11 +238,11 @@ public class CourseOutlineAdapter extends BaseAdapter {
             checkAccessStatus(viewHolder, unit);
         } else if (!unit.isMultiDevice()) {
             // If we reach here & the type is VIDEO, it means the video is webOnly
-            viewHolder.bulkDownload.setVisibility(View.INVISIBLE);
+//            viewHolder.bulkDownload.setVisibility(View.INVISIBLE);
             viewHolder.rowType.setIcon(FontAwesomeIcons.fa_laptop);
             viewHolder.rowType.setIconColorResource(R.color.edx_brand_gray_accent);
         } else {
-            viewHolder.bulkDownload.setVisibility(View.INVISIBLE);
+//            viewHolder.bulkDownload.setVisibility(View.INVISIBLE);
             if (unit.getType() == BlockType.PROBLEM) {
                 viewHolder.rowType.setIcon(FontAwesomeIcons.fa_list);
             } else {
@@ -272,8 +272,8 @@ public class CourseOutlineAdapter extends BaseAdapter {
 
     private void updateUIForVideo(@NonNull final ViewHolder viewHolder, @NonNull final DownloadEntry videoData) {
         viewHolder.rowType.setIcon(FontAwesomeIcons.fa_film);
-        viewHolder.numOfVideoAndDownloadArea.setVisibility(View.VISIBLE);
-        viewHolder.bulkDownload.setVisibility(View.VISIBLE);
+//        viewHolder.numOfVideoAndDownloadArea.setVisibility(View.VISIBLE);
+//        viewHolder.bulkDownload.setVisibility(View.VISIBLE);
 
         viewHolder.rowSubtitlePanel.setVisibility(View.VISIBLE);
         viewHolder.rowSubtitle.setVisibility(View.VISIBLE);
@@ -297,9 +297,9 @@ public class CourseOutlineAdapter extends BaseAdapter {
                 });
 
         if (videoData.isVideoForWebOnly()) {
-            viewHolder.numOfVideoAndDownloadArea.setVisibility(View.GONE);
+//            viewHolder.numOfVideoAndDownloadArea.setVisibility(View.GONE);
         } else {
-            viewHolder.numOfVideoAndDownloadArea.setVisibility(View.VISIBLE);
+//            viewHolder.numOfVideoAndDownloadArea.setVisibility(View.VISIBLE);
             dbStore.getDownloadedStateForVideoId(videoData.videoId,
                     new DataCallback<DownloadEntry.DownloadedState>(true) {
                         @Override
@@ -330,7 +330,7 @@ public class CourseOutlineAdapter extends BaseAdapter {
                         @Override
                         public void onFail(Exception ex) {
                             logger.error(ex);
-                            viewHolder.bulkDownload.setVisibility(View.VISIBLE);
+//                            viewHolder.bulkDownload.setVisibility(View.VISIBLE);
                         }
                     });
         }
@@ -348,9 +348,9 @@ public class CourseOutlineAdapter extends BaseAdapter {
         String sequentialId = path.get(2) == null ? "" : path.get(2).getDisplayName();
 
         holder.rowTitle.setText(component.getDisplayName());
-        holder.numOfVideoAndDownloadArea.setVisibility(View.VISIBLE);
+//        holder.numOfVideoAndDownloadArea.setVisibility(View.VISIBLE);
         if (component.isGraded()) {
-            holder.bulkDownload.setVisibility(View.INVISIBLE);
+//            holder.bulkDownload.setVisibility(View.INVISIBLE);
             holder.rowSubtitlePanel.setVisibility(View.VISIBLE);
             holder.rowSubtitleIcon.setVisibility(View.VISIBLE);
             holder.rowSubtitle.setVisibility(View.VISIBLE);
@@ -360,21 +360,21 @@ public class CourseOutlineAdapter extends BaseAdapter {
         final int totalDownloadableVideos = component.getDownloadableVideosCount();
         // support video download for video type excluding the ones only viewable on web
         if (totalDownloadableVideos == 0) {
-            holder.numOfVideoAndDownloadArea.setVisibility(View.GONE);
+//            holder.numOfVideoAndDownloadArea.setVisibility(View.GONE);
         } else {
-            holder.bulkDownload.setVisibility(View.VISIBLE);
-            holder.noOfVideos.setVisibility(View.VISIBLE);
-            holder.noOfVideos.setText("" + totalDownloadableVideos);
+//            holder.bulkDownload.setVisibility(View.VISIBLE);
+//            holder.noOfVideos.setVisibility(View.VISIBLE);
+//            holder.noOfVideos.setText("" + totalDownloadableVideos);
 
             Integer downloadedCount = dbStore.getDownloadedVideosCountForSection(courseId,
                     chapterId, sequentialId, null);
 
             if (downloadedCount == totalDownloadableVideos) {
-                holder.noOfVideos.setVisibility(View.VISIBLE);
+//                holder.noOfVideos.setVisibility(View.VISIBLE);
                 setRowStateOnDownload(holder, DownloadEntry.DownloadedState.DOWNLOADED, null);
             } else if (dbStore.getDownloadingVideosCountForSection(courseId, chapterId,
                     sequentialId, null) + downloadedCount == totalDownloadableVideos) {
-                holder.noOfVideos.setVisibility(View.GONE);
+//                holder.noOfVideos.setVisibility(View.GONE);
                 setRowStateOnDownload(holder, DownloadEntry.DownloadedState.DOWNLOADING,
                         new View.OnClickListener() {
                             @Override
@@ -383,7 +383,7 @@ public class CourseOutlineAdapter extends BaseAdapter {
                             }
                         });
             } else {
-                holder.noOfVideos.setVisibility(View.VISIBLE);
+//                holder.noOfVideos.setVisibility(View.VISIBLE);
                 setRowStateOnDownload(holder, DownloadEntry.DownloadedState.ONLINE,
                         new View.OnClickListener() {
                             @Override
@@ -406,24 +406,24 @@ public class CourseOutlineAdapter extends BaseAdapter {
             , View.OnClickListener listener) {
         switch (state) {
             case DOWNLOADING:
-                row.bulkDownload.setIcon(FontAwesomeIcons.fa_spinner);
-                row.bulkDownload.setIconAnimation(Animation.PULSE);
-                row.bulkDownload.setIconColorResource(R.color.edx_brand_primary_base);
+//                row.bulkDownload.setIcon(FontAwesomeIcons.fa_spinner);
+//                row.bulkDownload.setIconAnimation(Animation.PULSE);
+//                row.bulkDownload.setIconColorResource(R.color.edx_brand_primary_base);
                 break;
             case DOWNLOADED:
-                row.bulkDownload.setIcon(FontAwesomeIcons.fa_check);
-                row.bulkDownload.setIconAnimation(Animation.NONE);
-                row.bulkDownload.setIconColorResource(R.color.edx_brand_gray_accent);
+//                row.bulkDownload.setIcon(FontAwesomeIcons.fa_check);
+//                row.bulkDownload.setIconAnimation(Animation.NONE);
+//                row.bulkDownload.setIconColorResource(R.color.edx_brand_gray_accent);
                 break;
             case ONLINE:
-                row.bulkDownload.setIcon(FontAwesomeIcons.fa_arrow_down);
-                row.bulkDownload.setIconAnimation(Animation.NONE);
-                row.bulkDownload.setIconColorResource(R.color.edx_brand_gray_accent);
+//                row.bulkDownload.setIcon(FontAwesomeIcons.fa_arrow_down);
+//                row.bulkDownload.setIconAnimation(Animation.NONE);
+//                row.bulkDownload.setIconColorResource(R.color.edx_brand_gray_accent);
                 break;
         }
-        row.numOfVideoAndDownloadArea.setOnClickListener(listener);
+//        row.numOfVideoAndDownloadArea.setOnClickListener(listener);
         if (listener == null) {
-            row.numOfVideoAndDownloadArea.setClickable(false);
+//            row.numOfVideoAndDownloadArea.setClickable(false);
         }
     }
 
@@ -451,13 +451,13 @@ public class CourseOutlineAdapter extends BaseAdapter {
         holder.rowSubtitleIcon = (IconImageView) convertView
                 .findViewById(R.id.row_subtitle_icon);
         holder.rowSubtitleIcon.setIconColorResource(R.color.edx_brand_primary_base);
-        holder.noOfVideos = (TextView) convertView
-                .findViewById(R.id.no_of_videos);
-        holder.bulkDownload = (IconImageView) convertView
-                .findViewById(R.id.bulk_download);
-        holder.bulkDownload.setIconColorResource(R.color.edx_brand_gray_accent);
-        holder.numOfVideoAndDownloadArea = (LinearLayout) convertView
-                .findViewById(R.id.bulk_download_layout);
+//        holder.noOfVideos = (TextView) convertView
+//                .findViewById(R.id.no_of_videos);
+//        holder.bulkDownload = (IconImageView) convertView
+//                .findViewById(R.id.bulk_download);
+//        holder.bulkDownload.setIconColorResource(R.color.edx_brand_gray_accent);
+//        holder.numOfVideoAndDownloadArea = (LinearLayout) convertView
+//                .findViewById(R.id.bulk_download_layout);
         holder.rowSubtitlePanel = convertView.findViewById(R.id.row_subtitle_panel);
         holder.halfSeparator = convertView.findViewById(R.id.row_half_separator);
         holder.wholeSeparator = convertView.findViewById(R.id.row_whole_separator);

@@ -3,6 +3,7 @@ package org.edx.mobile.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.inject.Inject;
 
 import org.edx.mobile.core.IEdxEnvironment;
@@ -11,6 +12,7 @@ import org.edx.mobile.model.api.EnrolledCoursesResponse;
 import org.edx.mobile.module.prefs.LoginPrefs;
 import org.edx.mobile.util.Config;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,6 +52,15 @@ public class CoursesAsyncLoader extends AsyncTaskLoader<AsyncTaskResult<List<Enr
 
         try {
             enrolledCoursesResponse = executeStrict(api.getEnrolledCourses());
+
+            Iterator<EnrolledCoursesResponse> iter = enrolledCoursesResponse.iterator();
+            while (iter.hasNext()) {
+                EnrolledCoursesResponse enrolledCourse = iter.next();
+                final String subscriptionId = enrolledCourse.getCourse().getSubscription_id();
+                FirebaseMessaging.getInstance().subscribeToTopic(subscriptionId);
+            }
+
+
             environment.getNotificationDelegate().syncWithServerForFailure();
             environment.getNotificationDelegate().checkCourseEnrollment(enrolledCoursesResponse);
 

@@ -111,11 +111,11 @@ public class CourseOutlineFragment extends BaseFragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (((IconImageView) view.findViewById(R.id.bulk_download)).getIcon() == FontAwesomeIcons.fa_check) {
-                    ((AppCompatActivity) getActivity()).startSupportActionMode(deleteModelCallback);
-                    listView.setItemChecked(position, true);
-                    return true;
-                }
+//                if (((IconImageView) view.findViewById(R.id.bulk_download)).getIcon() == FontAwesomeIcons.fa_check) {
+//                    ((AppCompatActivity) getActivity()).startSupportActionMode(deleteModelCallback);
+//                    listView.setItemChecked(position, true);
+//                    return true;
+//                }
                 return false;
             }
         });

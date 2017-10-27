@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.inject.Inject;
 
 import org.edx.mobile.R;
@@ -36,6 +37,7 @@ public class LaunchActivity extends BaseFragmentActivity {
                 startActivity(environment.getRouter().getRegisterIntent());
             }
         });
+
         environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.LAUNCH_ACTIVITY);
     }
 

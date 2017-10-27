@@ -154,7 +154,7 @@
     <string name="leaving_app_data_message">If you leave the app, you will no longer be viewing free {platform_name} content. Data charges may apply.</string>
     <!-- Title of agreement users must accept to use the app -->
     <string name="end_user_title">End User License Agreement</string>
-
+    <string name="join_live_meeting">Join Live</string>
     <!-- My Courses -->
     <!-- Row of course on dashboard screen -->
     <string name="courseware_title">Course</string>
@@ -177,6 +177,10 @@
     <string name="handouts_subtitle">Find important course information</string>
     <!-- Row of announcement on dashboard screen -->
     <string name="announcement_title">Announcements</string>
+    <!-- Row of announcement on dashboard screen -->
+    <string name="live_class">Live Class</string>
+    <!-- NOTE: TODO - not final one -->
+    <string name="liveclass_subtitle">Connect with your tutor online</string>
     <!-- Title text for the important dates section on the course dashboard  -->
     <string name="course_dates_title">Important Dates</string>
     <!-- Row of announcement on dashboard screen -->
@@ -636,4 +640,7 @@
     <string name="rating_bar_selection">{rating} out of {num_of_stars}</string>
     <!-- Title of the Whats New screen e.g. Version 2.8.1 New Features -->
     <string name="whats_new_title">Version {version_number} New Features</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

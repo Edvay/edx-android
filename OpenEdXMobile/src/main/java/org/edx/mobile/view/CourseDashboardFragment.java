@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,19 +146,6 @@ public class CourseDashboardFragment extends BaseFragment {
 
             holder = createViewHolder(inflater, parent);
 
-            holder.typeView.setIcon(FontAwesomeIcons.fa_file_text_o);
-            holder.titleView.setText(R.string.handouts_title);
-            holder.subtitleView.setText(R.string.handouts_subtitle);
-            holder.rowView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (courseData != null)
-                        environment.getRouter().showHandouts(getActivity(), courseData);
-                }
-            });
-
-            holder = createViewHolder(inflater, parent);
-
             holder.typeView.setIcon(FontAwesomeIcons.fa_bullhorn);
             holder.titleView.setText(R.string.announcement_title);
             holder.subtitleView.setText(R.string.announcement_subtitle);
@@ -168,6 +156,24 @@ public class CourseDashboardFragment extends BaseFragment {
                         environment.getRouter().showCourseAnnouncement(getActivity(), courseData);
                 }
             });
+
+
+            Log.e("******************cue","before live class");
+            holder = createViewHolder(inflater, parent);
+
+            holder.typeView.setIcon(FontAwesomeIcons.fa_file_movie_o);
+            holder.titleView.setText(R.string.live_class);
+            holder.subtitleView.setText(R.string.liveclass_subtitle);
+            holder.rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (courseData != null)
+                        environment.getRouter().showCourseAnnouncement(getActivity(), courseData);
+                }
+            });
+
+            Log.e("******************cue","after live class");
+
 
             if (environment.getConfig().isCourseDatesEnabled()) {
                 holder = createViewHolder(inflater, parent);
@@ -184,6 +190,19 @@ public class CourseDashboardFragment extends BaseFragment {
                     }
                 });
             }
+            holder = createViewHolder(inflater, parent);
+
+            holder.typeView.setIcon(FontAwesomeIcons.fa_file_text_o);
+            holder.titleView.setText(R.string.handouts_title);
+            holder.subtitleView.setText(R.string.handouts_subtitle);
+            holder.rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (courseData != null)
+                        environment.getRouter().showHandouts(getActivity(), courseData);
+                }
+            });
+
         } else {
             errorText.setText(R.string.course_not_started);
         }
@@ -218,7 +237,7 @@ public class CourseDashboardFragment extends BaseFragment {
 
     /**
      * Creates a dropdown menu with appropriate apps when the share button is clicked.
-     */
+//     */
     private void openShareMenu() {
         final String shareTextWithPlatformName = ResourceUtil.getFormattedString(
                 getResources(),

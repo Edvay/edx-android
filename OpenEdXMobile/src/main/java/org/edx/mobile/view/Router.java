@@ -40,6 +40,7 @@ import de.greenrobot.event.EventBus;
 @Singleton
 public class Router {
     public static final String EXTRA_ANNOUNCEMENTS = "announcements";
+    public static final String EXTRA_LIVE_CLASS = "liveclass";
     public static final String EXTRA_BUNDLE = "bundle";
     public static final String EXTRA_COURSE_ID = "course_id";
     public static final String EXTRA_COURSE_DETAIL = "course_detail";
@@ -144,6 +145,18 @@ public class Router {
         courseDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         activity.startActivity(courseDetail);
     }
+
+//    public void showLiveclass(Activity activity, EnrolledCoursesResponse model) {
+//        final Bundle courseBundle = new Bundle();
+//
+//        courseBundle.putBoolean(EXTRA_LIVE_CLASS, true);
+//        final Intent courseDetail = new Intent(activity, CourseLiveClassActivity.class);
+//        courseDetail.putExtra(EXTRA_BUNDLE, courseBundle);
+//        courseDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//        activity.startActivity(courseDetail);
+//    }
+
+
 
     public void showCourseAnnouncementFromNotification(@NonNull Context context, @NonNull String courseId) {
         final Bundle courseBundle = new Bundle();

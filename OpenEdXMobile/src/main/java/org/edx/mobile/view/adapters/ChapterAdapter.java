@@ -44,16 +44,16 @@ public abstract class ChapterAdapter extends BaseListAdapter<SectionEntry> {
         int videoCount = totalCount - inProcessCount - webOnlyCount;
         if (videoCount > 0) {
             holder.progresslayout.setVisibility(View.INVISIBLE);
-            holder.bulk_download_videos.setVisibility(View.VISIBLE);
-            holder.bulk_download_videos
-            .setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View downloadView) {
-                    download(model);
-                }
-            });
+//            holder.bulk_download_videos.setVisibility(View.VISIBLE);
+//            holder.bulk_download_videos
+//            .setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View downloadView) {
+//                    download(model);
+//                }
+//            });
         } else {
-            holder.bulk_download_videos.setVisibility(View.INVISIBLE);
+//            holder.bulk_download_videos.setVisibility(View.INVISIBLE);
             if(environment.getDatabase().isVideoDownloadingInChapter(courseId, model.chapter, null)){
                 holder.download_pw.setVisibility(View.VISIBLE);
                 environment.getStorage().getAverageDownloadProgressInChapter(
@@ -82,7 +82,7 @@ public abstract class ChapterAdapter extends BaseListAdapter<SectionEntry> {
         if (!NetworkUtil.isConnected(context)) {
             holder.progresslayout.setVisibility(View.INVISIBLE);
             holder.no_of_videos.setVisibility(View.GONE);
-            holder.bulk_download_videos.setVisibility(View.GONE);
+//            holder.bulk_download_videos.setVisibility(View.GONE);
             holder.download_pw.setVisibility(View.INVISIBLE);
             holder.next_arrow.setVisibility(View.VISIBLE);
             boolean isVideoDownloaded = environment.getDatabase().isVideoDownloadedInChapter
@@ -117,8 +117,8 @@ public abstract class ChapterAdapter extends BaseListAdapter<SectionEntry> {
                 .findViewById(R.id.chapter_name);
         holder.no_of_videos = (TextView) convertView
                 .findViewById(R.id.no_of_videos);
-        holder.bulk_download_videos = (LinearLayout) convertView
-                .findViewById(R.id.bulk_download_layout);
+//        holder.bulk_download_videos = (LinearLayout) convertView
+//                .findViewById(R.id.bulk_download_layout);
         holder.next_arrow = (ImageView) convertView
                 .findViewById(R.id.next_arrow);
         holder.chapterLayout = (RelativeLayout) convertView
