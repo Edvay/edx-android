@@ -439,3 +439,5 @@ screenshots {
     testApkTarget = 'packageProdDebuggableAndroidTest'
     connectedAndroidTestTarget = 'connectedProdDebuggableAndroidTest'
 }
+
+apply plugin: 'com.google.gms.google-services'
