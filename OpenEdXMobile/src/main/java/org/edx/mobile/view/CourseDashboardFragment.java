@@ -168,7 +168,7 @@ public class CourseDashboardFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     if (courseData != null)
-                        environment.getRouter().showCourseAnnouncement(getActivity(), courseData);
+                        environment.getRouter().showLiveclass(getActivity(), courseData);
                 }
             });
 

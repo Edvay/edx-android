@@ -197,6 +197,12 @@
             android:theme="@style/AppTheme.NoActionBar.TranslucentStatusBar" />
 
         <activity
+            android:name=".view.CourseLiveClassActivity"
+            android:label="@string/live_class"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.TranslucentStatusBar" />
+
+        <activity
             android:name="org.edx.mobile.view.CertificateActivity"
             android:label="@string/tab_label_certificate"
             android:screenOrientation="portrait"

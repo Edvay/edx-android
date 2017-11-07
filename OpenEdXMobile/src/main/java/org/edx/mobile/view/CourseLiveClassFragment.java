@@ -2,6 +2,7 @@ package org.edx.mobile.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import org.edx.mobile.http.provider.OkHttpClientProvider;
 import org.edx.mobile.logger.Logger;
 import org.edx.mobile.model.api.AnnouncementsModel;
 import org.edx.mobile.model.api.EnrolledCoursesResponse;
+import org.edx.mobile.model.course.VideoBlockModel;
 import org.edx.mobile.module.facebook.IUiLifecycleHelper;
 import org.edx.mobile.social.facebook.FacebookProvider;
 import org.edx.mobile.util.NetworkUtil;
@@ -71,6 +73,8 @@ public class CourseLiveClassFragment extends BaseFragment{
 
     private SnackbarErrorNotification snackbarErrorNotification;
 
+    public String courseid;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +94,15 @@ public class CourseLiveClassFragment extends BaseFragment{
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_live_class, container, false);
-
+        view.findViewById(R.id.join_live_meeting_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                courseid = courseid.replaceAll(" ","+");
+                i.setData(Uri.parse("http://35.154.65.112/demo/demoHTML5.jsp?action=invite&meetingID=" + courseid));
+                startActivity(i);
+            }
+        });
 
         return view;
     }

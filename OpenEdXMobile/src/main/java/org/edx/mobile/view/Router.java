@@ -1,8 +1,10 @@
 package org.edx.mobile.view;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +25,8 @@ import org.edx.mobile.discussion.DiscussionThread;
 import org.edx.mobile.discussion.DiscussionTopic;
 import org.edx.mobile.event.LogoutEvent;
 import org.edx.mobile.model.api.EnrolledCoursesResponse;
+import org.edx.mobile.model.api.ProfileModel;
+import org.edx.mobile.model.course.VideoBlockModel;
 import org.edx.mobile.module.analytics.AnalyticsRegistry;
 import org.edx.mobile.module.notification.NotificationDelegate;
 import org.edx.mobile.module.prefs.LoginPrefs;
@@ -34,8 +38,23 @@ import org.edx.mobile.util.SecurityUtil;
 import org.edx.mobile.view.dialog.WebViewActivity;
 import org.edx.mobile.view.my_videos.MyVideosActivity;
 import org.edx.mobile.whatsnew.WhatsNewActivity;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import de.greenrobot.event.EventBus;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 @Singleton
 public class Router {
@@ -54,6 +73,8 @@ public class Router {
     public static final String EXTRA_DISCUSSION_COMMENT = "discussion_comment";
     public static final String EXTRA_DISCUSSION_TOPIC_ID = "discussion_topic_id";
     public static final String EXTRA_IS_VIDEOS_MODE = "videos_mode";
+    private static final String BBB_Server="http://35.154.65.112/bigbluebutton/";
+    private static final String BBB_SECRET="1194b1c6e682e52b775d105c3afa878d";
 
     @Inject
     Config config;
@@ -62,6 +83,9 @@ public class Router {
     private LoginAPI loginAPI;
     @Inject
     private LoginPrefs loginPrefs;
+
+    ProfileModel profile;
+
     @Inject
     private IStorage storage;
 
@@ -146,15 +170,22 @@ public class Router {
         activity.startActivity(courseDetail);
     }
 
-//    public void showLiveclass(Activity activity, EnrolledCoursesResponse model) {
+    public void showLiveclass(Activity activity, EnrolledCoursesResponse model) {
+          profile = loginPrefs.getCurrentUserProfile();
+
 //        final Bundle courseBundle = new Bundle();
-//
+//        courseBundle.putSerializable(EXTRA_COURSE_DATA, model);
 //        courseBundle.putBoolean(EXTRA_LIVE_CLASS, true);
 //        final Intent courseDetail = new Intent(activity, CourseLiveClassActivity.class);
 //        courseDetail.putExtra(EXTRA_BUNDLE, courseBundle);
 //        courseDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        activity.startActivity(courseDetail);
-//    }
+        String courseid = model.getCourse().getName();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        courseid = courseid.replaceAll(" ","+");
+        i.setData(Uri.parse("https://ehs.cuelms.com/virtualclass/join/" + profile.id));
+        activity.startActivity(i);
+    }
 
 
 
@@ -435,4 +466,74 @@ public class Router {
                 .append(activity.getString(R.string.insert_feedback));
         EmailUtil.openEmailClient(activity, to, subject, body.toString(), config);
     }
+
+    private String getBbbAPIJoinUrl(String courseName, String userName) {
+        try {
+            String url  = "join?"
+                         + "&meetingID=" + URLEncoder.encode(courseName, "utf-8")
+                         + "&fullname=" + URLEncoder.encode(userName,"utf-8")
+                         + "&password="+ "ap"
+                    +"&redirectClient=false";
+            return url;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getSHA1Hash(String inputString) {
+
+
+        MessageDigest cript = null;
+        try {
+            cript = MessageDigest.getInstance("SHA-1");
+            cript.reset();
+
+            cript.update(inputString.getBytes("utf-8"));
+            return new BigInteger(1, cript.digest()).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+       return null;
+
+    }
+
+    private String getAuthCode(String xml) {
+
+        try {
+            XmlPullParserFactory xmlFactoryObject = XmlPullParserFactory.newInstance();
+            XmlPullParser myparser = xmlFactoryObject.newPullParser();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getJoinMeetingXml(String url) {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                   //
+                }
+            }
+
+        } );
+        return null;
+    }
+
 }
