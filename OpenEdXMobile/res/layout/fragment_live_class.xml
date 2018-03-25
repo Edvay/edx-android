@@ -1,35 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context="org.edx.mobile.view.CourseLiveClassFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/join_live_meeting"
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtube_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/edx_margin"
-        android:layout_marginLeft="@dimen/edx_quadruple_margin"
-        android:layout_marginRight="@dimen/edx_quadruple_margin"
-        android:gravity="center"
-        android:singleLine="false"
-        tools:text="@string/join_live_meeting"
-        android:textAlignment="center"
-        android:textColor="@color/edx_brand_gray_base"
-        android:textSize="@dimen/edx_base"
-        tools:targetApi="17" />
-
-    <Button
-        android:id="@+id/join_live_meeting_button"
-        style="@style/edX.Widget.RegularButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/edx_margin"
-        android:layout_marginTop="15dp"
-        android:text="@string/join_live_meeting" />
-
-</FrameLayout>
+        android:layout_height="wrap_content"/>
+</LinearLayout>

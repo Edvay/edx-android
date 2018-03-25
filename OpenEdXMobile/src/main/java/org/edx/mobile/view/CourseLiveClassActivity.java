@@ -1,8 +1,12 @@
 package org.edx.mobile.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.inject.Inject;
 
@@ -11,65 +15,74 @@ import org.edx.mobile.course.CourseAPI;
 import org.edx.mobile.model.api.EnrolledCoursesResponse;
 import org.edx.mobile.module.analytics.Analytics;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayer.PlayerStyle;
+import com.google.android.youtube.player.YouTubePlayerView;
 
-public class CourseLiveClassActivity extends BaseSingleFragmentActivity {
+import org.edx.mobile.R;
 
-    @Inject
-    CourseAPI api;
+public class CourseLiveClassActivity extends YouTubeBaseActivity
+    implements
+    YouTubePlayer.OnInitializedListener {
 
-    private EnrolledCoursesResponse courseData;
+        private static final int RECOVERY_DIALOG_REQUEST = 1;
 
+        // YouTube player view
+        private YouTubePlayerView youTubeView;
 
-    public static String TAG = CourseLiveClassActivity.class.getCanonicalName();
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    Bundle bundle;
-    String activityTitle;
+            setContentView(R.layout.fragment_live_class);
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
 
-        bundle = savedInstanceState != null ? savedInstanceState :
-                getIntent().getBundleExtra(Router.EXTRA_BUNDLE);
+            // Initializing video player with developer key
+            youTubeView.initialize("AIzaSyCDT3XEtu-XZMXBkgspNsqfioIEtj4kPYQ", this);
 
-        courseData = (EnrolledCoursesResponse) bundle
-                .getSerializable(Router.EXTRA_COURSE_DATA);
-
-        //check courseData again, it may be fetched from local cache
-        if (courseData != null) {
-            activityTitle = courseData.getCourse().getName();
-            environment.getAnalyticsRegistry().trackScreenView(
-                    Analytics.Screens.COURSE_ANNOUNCEMENTS,
-                    courseData.getCourse().getId(),
-                    null);
         }
 
+        @Override
+        public void onInitializationFailure(YouTubePlayer.Provider provider,
+                YouTubeInitializationResult errorReason) {
+            if (errorReason.isUserRecoverableError()) {
+                errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show();
+            } else {
 
+
+            }
+        }
+
+        @Override
+        public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                YouTubePlayer player, boolean wasRestored) {
+            if (!wasRestored) {
+
+                // loadVideo() will auto play video
+                // Use cueVideo() method, if you don't want to play it automatically
+                player.loadVideo("YFxXzzfixhA");
+
+                // Hiding player controls
+                player.setPlayerStyle(PlayerStyle.DEFAULT);
+            }
+        }
+
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (requestCode == RECOVERY_DIALOG_REQUEST) {
+                // Retry initialization if user performed a recovery action
+                getYouTubePlayerProvider().initialize("AIzaSyCDT3XEtu-XZMXBkgspNsqfioIEtj4kPYQ", this);
+            }
+        }
+
+    private YouTubePlayer.Provider getYouTubePlayerProvider() {
+        return (YouTubePlayerView) findViewById(R.id.youtube_view);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        invalidateOptionsMenu();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    public Fragment getFirstFragment() {
-        CourseLiveClassFragment fragment = new CourseLiveClassFragment();
-        fragment.courseid = courseData.getCourse().getName();
-        return fragment;
-    }
 }

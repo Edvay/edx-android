@@ -1,7 +1,7 @@
-API_HOST_URL: 'https://ehs.cuelms.com' # localhost is 10.0.2.2 in Android
-ENVIRONMENT_DISPLAY_NAME: 'Cue-EHS'
-PLATFORM_NAME: 'Cue-EHS'
-PLATFORM_DESTINATION_NAME: 'Cue-EHS'
-FEEDBACK_EMAIL_ADDRESS: 'support@cueehs.com'
+API_HOST_URL: 'http://digitalkora.indus.edvay.com' # localhost is 10.0.2.2 in Android
+ENVIRONMENT_DISPLAY_NAME: 'DigitalKora'
+PLATFORM_NAME: 'DigitalKora'
+PLATFORM_DESTINATION_NAME: 'DigitalKora'
+FEEDBACK_EMAIL_ADDRESS: 'support@edvay.com'
 DISCUSSIONS_ENABLED: True
 NEW_LOGISTRATION_ENABLED : False

@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.inject.Inject;
@@ -168,7 +169,9 @@ public class CourseDashboardFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     if (courseData != null)
-                        environment.getRouter().showLiveclass(getActivity(), courseData);
+                        Toast.makeText(getActivity(), "There are no live classes now!",
+                                Toast.LENGTH_LONG).show();
+                        //environment.getRouter().showLiveclass(getActivity(), courseData);
                 }
             });
 

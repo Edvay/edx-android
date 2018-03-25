@@ -173,18 +173,18 @@ public class Router {
     public void showLiveclass(Activity activity, EnrolledCoursesResponse model) {
           profile = loginPrefs.getCurrentUserProfile();
 
-//        final Bundle courseBundle = new Bundle();
-//        courseBundle.putSerializable(EXTRA_COURSE_DATA, model);
-//        courseBundle.putBoolean(EXTRA_LIVE_CLASS, true);
-//        final Intent courseDetail = new Intent(activity, CourseLiveClassActivity.class);
-//        courseDetail.putExtra(EXTRA_BUNDLE, courseBundle);
-//        courseDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//        activity.startActivity(courseDetail);
-        String courseid = model.getCourse().getName();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        courseid = courseid.replaceAll(" ","+");
-        i.setData(Uri.parse("https://ehs.cuelms.com/virtualclass/join/" + profile.id));
-        activity.startActivity(i);
+        final Bundle courseBundle = new Bundle();
+        courseBundle.putSerializable(EXTRA_COURSE_DATA, model);
+        courseBundle.putBoolean(EXTRA_LIVE_CLASS, true);
+        final Intent courseDetail = new Intent(activity, CourseLiveClassActivity.class);
+        courseDetail.putExtra(EXTRA_BUNDLE, courseBundle);
+        courseDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        activity.startActivity(courseDetail);
+//        String courseid = model.getCourse().getName();
+//        Intent i = new Intent(Intent.ACTION_VIEW);
+//        courseid = courseid.replaceAll(" ","+");
+//        i.setData(Uri.parse("https://ehs.cuelms.com/virtualclass/join/" + profile.id));
+//        activity.startActivity(i);
     }
 
 

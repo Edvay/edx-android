@@ -89,7 +89,7 @@ def getVersionName = { ->
         logger.error("Could not determine version name", e)
     }
     //return description.substring(description.indexOf("/") + 1).split("-")[0].trim()
-    return "0.0.6";
+    return "0.0.1";
 }
 
 /**
@@ -260,7 +260,7 @@ android {
         applicationId "org.edx.mobile"
         // minimum version is Android 4.0
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 19
 
         versionCode getVersionCode()
         versionName getVersionName()
