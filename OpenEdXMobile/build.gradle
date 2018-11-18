@@ -260,7 +260,7 @@ android {
         applicationId "org.edx.mobile"
         // minimum version is Android 4.0
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 26
 
         versionCode getVersionCode()
         versionName getVersionName()

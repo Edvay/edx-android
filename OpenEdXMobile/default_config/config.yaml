@@ -1,7 +1,7 @@
-API_HOST_URL: 'http://digitalkora.indus.edvay.com' # localhost is 10.0.2.2 in Android
-ENVIRONMENT_DISPLAY_NAME: 'DigitalKora'
-PLATFORM_NAME: 'DigitalKora'
-PLATFORM_DESTINATION_NAME: 'DigitalKora'
+API_HOST_URL: 'http://cue33.indus.edvay.com' # localhost is 10.0.2.2 in Android
+ENVIRONMENT_DISPLAY_NAME: 'Densol'
+PLATFORM_NAME: 'Densol'
+PLATFORM_DESTINATION_NAME: 'Densol'
 FEEDBACK_EMAIL_ADDRESS: 'support@edvay.com'
 DISCUSSIONS_ENABLED: True
 NEW_LOGISTRATION_ENABLED : False
